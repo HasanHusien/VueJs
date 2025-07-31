@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue js</title>
+
+</head>
+<body>
+  <div id="hassan-app">
+  <!-- The syntax -->
+    <h2> {{message}}  {{name}}</h2>
+    <h2 v-purple>Hassan, Purple</h2>
+    <p>My main skills is {{imaMethod()}}</p>
+    
+    <!-- v-text && v-html -->
+    <h1>v-text && v-html</h1>
+    <h3 v-text="name ? 'your name is set' :'your name is not set'"></h3>
+    <h3 v-html="title"></h3>
+    
+    <!-- loop -->
+    <h1>loop</h1>
+    <ul>
+    <li v-for=" skill in  skills">{{ skill}}</li>
+    </ul>
+    <ul>
+    <li v-for="(skill, index) in skills">
+      {{ index }} : {{ skill}}</li>
+    </ul>
+    <ul>
+    <li v-for=" test in  testCompanant">{{ test.age}} </li>
+    </ul>
+
+    <!-- v-if v-if-else v-else -->
+    <h1>if coundion</h1>
+    <p v-if="testCompanant[0].age  > 18 &&testCompanant[0].age  < 50 ">Youre Age Is Avilable</p>
+    <p v-else="">Youre Until Young</p>
+
+    <!-- v-show v-once -->
+    <h1>v-once && v-show</h1>
+
+    <!-- only once can update this value -->
+    <p v-once="name">WElcome MR {{ name }}</p>
+    <!-- update it in any time -->
+    <p v-show="name">WElcome MR {{testCompanant[0].theName  }}</p>
+</div>
+<div id="app">
+  <!-- v-bind v-on -->
+  <h1>v-bind && v-on</h1>
+  <a :href="imgURL">  <img :src="imgSRC">  </a>
+  <!-- v-on:click -->
+  <h1>v-on click</h1>
+  <h2>{{count}}</h2>
+  <button @click="count++">UP Counter</button>
+  <button @click ='count--'>Down Conter</button>
+
+  <!-- v-model -->
+    <h1>v-model</h1>
+    <form><br>
+    <label for="">Using v-bind</label>
+    <input type="text" :value="person">   <br><br>
+    <label for="">Using v-model</label>
+    <input type="text" v-model="person" >
+    <h3> Created By {{ person }}  </h3>
+    </form>
+
+    <!-- Components -->
+    <h1>Components</h1>
+    <vue-comp :source="source" :url="url" ></vue-comp>
+    <vue-comp :source="source" :url="url"></vue-comp>
+
+    <!-- computed -->
+    <h1>computed</h1>
+    <p>{{ReverseMessage}}</p>
+    <p> {{FullName}}</p>
+
+    <!-- Watch -->
+    <h1>Watch</h1>
+    <label >EGY</label>
+    <input type="text" v-model='egy' >
+    <label >SAR</label>
+    <input type="text" v-model="sar"> <br> <br><br>
+</div>
+
+<script src="js/vue.js"></script>
+<script>
+
+// companants 
+Vue.component('vue-comp',{
+  data: function(){
+    return {
+      name:'mohmed',
+      count:0,
+      status:'studing',
+    }
+  },
+  template: `<p @click='count++'>Hello {{name}}you clicked {{count}} on pragraph Source {{source}} URL Is {{ url}}</p>`,
+  props :['source','url'],
+  
+})
+// course learining obj 1
+var vm = new Vue ({
+  el:'#app',
+  data: {
+    person:'hassan hussien',
+    name:'img',
+    imgURL: 'https://www.google.com/',
+    imgSRC:'images/divel.jpg',
+    facebook: 'facebook',
+    facebookURL: 'https://www.facebook.com ',
+    count:0,
+    source:'web.com',
+    url:'https://www.facebook.com/',
+    egy:0,
+    sar:0,
+  },
+  // computed part
+  computed: {
+    ReverseMessage: function(){
+      return  this.person.split('').reverse().join('');
+    },
+    FullName: function(){
+      return `My Name Is ${this.person} And My Moeny IS ${this.count}`
+    }
+  },
+  // watch
+  watch: {
+    sar: function(v) {
+        this.egy = v / 5;
+        console.log('EG : ' + this.egy);
+    },
+    egy: function(v) {
+      return this.sar = v * 5
+      console.log('sar : ' + this.egy);
+    }
+      },
+})
+// creted by vue school 
+Vue.directive('purple', function(e) {
+  e.style.color = 'purple'
+})
+// course learining obj 2
+var vm = new Vue ({
+  el:'#hassan-app' ,
+  data : {
+    message:'Welcom, to vue app ',
+    name:'hassan',
+    skills: ['HTML',"SCSS","JS"],
+    status: true,
+    words:['hello', 'from', 'main', 'vue', 'and', 'pla'],
+    title:`<div class='rank'>iam created by vue title</div>`,
+    imaMethod: function(){
+      return this.skills[1]
+    },
+    testCompanant:
+    [
+      {
+        theName:'hassan',
+        age:21,
+      },
+      {
+        theName:'ali',
+        age:20,
+      }
+    ],
+  }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+@use './variables/all_variabels' as *;
+
+
+%main-style {
+    padding: 10px;
+    border: 1px solid $main-c;
+    background-color: $main-bg;
+}
+
+.perant {
+    color: $main-c;
+    margin: $main-m;
+    @extend %main-style;
+.child {
+    font: {
+        size:20px;
+        weight:bold;
+        family: 'san-ref';
+    }
+    .grand-child {
+        padding: 5px;
+    }
+}
+&.poin {
+    display: block;
+}
+}
+
